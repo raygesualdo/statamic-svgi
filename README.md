@@ -15,3 +15,6 @@ Drop the `{{ svgi }}` tag anywhere your heart desires.
  - __src__: Path to the SVG file (required)
  - __as__: Optionally insert SVG as `<object>` or `<img>`
  - __alt__: Alt text (only used for `<img>`)
+ 
+##TODO
+ - Add function to handle SVG files in the `_theme` directory
