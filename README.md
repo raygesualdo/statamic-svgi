@@ -18,3 +18,4 @@ Drop the `{{ svgi }}` tag anywhere your heart desires.
  
 ##TODO
  - Add function to handle SVG files in the `_theme` directory
+ - Add [E.A.R.L.](https://github.com/raygesualdo/statamic-earl) integration

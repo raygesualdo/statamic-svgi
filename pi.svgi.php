@@ -42,6 +42,40 @@ class Plugin_svgi extends Plugin
     }
 
     /**
+     * Theme function
+     * 
+     * The function is equivalent to the index fuction, except it assumes
+	 * a base path of the current theme directory.
+     *    
+     * @return string
+     */
+    public function theme() 
+    {
+        $src = $this->fetchParam('src', false, null, false, false);
+        $as  = $this->fetchParam('as', false, null, false, true);
+        $alt = $this->fetchParam('alt', false, null, false, false);
+		
+		$this->theme_assets_path = Config::getThemeAssetsPath();
+        $this->theme_path        = Config::getCurrentthemePath();
+        $this->theme_root        = Config::getTemplatesPath();
+        $this->site_root         = Config::getSiteRoot();
+        
+		var_dump($this->theme_assets_path);
+		var_dump($this->theme_path);
+		var_dump($this->theme_root);
+		var_dump($this->site_root);
+		die;
+		
+        if (!$src)
+        {
+            return NULL;
+        }
+
+        return $this->insertSVG($src, $as, $alt);
+        
+    }
+
+    /**
      * insertSVG function
      * 
      * The function inserts the given SVG file using parameters
