@@ -28,9 +28,9 @@ class Plugin_svgi extends Plugin
      */
     public function index() 
     {
-        $src  = $this->fetchParam('src', false);
-        $as = $this->fetchParam('as', false);
-        $alt  = $this->fetchParam('alt', false);
+        $src = $this->fetchParam('src', false, null, false, false);
+        $as  = $this->fetchParam('as', false, null, false, true);
+        $alt = $this->fetchParam('alt', false, null, false, false);
         
         if (!$src)
         {
@@ -52,17 +52,17 @@ class Plugin_svgi extends Plugin
      * @param string $alt alt text for <img> tags only
      * @return string
      */
-    private function insertSVG($src = NULL, $as = NULL, $alt = NULL)
+    private function insertSVG($src, $as = NULL, $alt = NULL)
     {        
-        $full_src = Path::assemble(BASE_PATH, $src);
-        $full_url = Config::getSiteRoot() . $src;
-        $html = NULL;
-        
         if (!$src)
         {
             return NULL;
         }                                        
 
+        $full_src = Path::assemble(BASE_PATH, $src);
+        $full_url = Config::getSiteRoot() . $src;
+        $html;
+        
         if ( $as == "img" || $as == "image" )
         {            
             if ($alt)
