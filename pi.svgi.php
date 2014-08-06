@@ -149,10 +149,7 @@ class Plugin_svgi extends Plugin
     public function symbol()
     {
         $symbol = $this->fetchParam('name', null, null, false, false);
-        $class = $this->fetchParam('class', $symbol, null, false, false);
-
-        // Prevent symbol being output twice in the tag
-        $class = ($symbol === $class) ? '' : $class;
+        $class = $this->fetchParam('class', false, null, false, false);
 
         return "<svg class=\"$class $symbol\"><use xlink:href=\"#$symbol\"></use></svg>";
     }
