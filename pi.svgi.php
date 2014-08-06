@@ -137,4 +137,23 @@ class Plugin_svgi extends Plugin
         return $html;
         
     }
+
+    /**
+     * symbol function
+     *
+     * This outputs a SVG symbol reference.
+     * @see http://css-tricks.com/svg-sprites-use-better-icon-fonts/
+     *
+     * @return string
+     */
+    public function symbol()
+    {
+        $symbol = $this->fetchParam('name', null, null, false, false);
+        $class = $this->fetchParam('class', $symbol, null, false, false);
+
+        // Prevent symbol being output twice in the tag
+        $class = ($symbol === $class) ? '' : $class;
+
+        return "<svg class=\"$class $symbol\"><use xlink:href=\"#$symbol\"></use></svg>";
+    }
 }

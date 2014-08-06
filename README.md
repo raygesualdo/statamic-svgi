@@ -17,13 +17,23 @@ Drop the `{{ svgi }}` tag anywhere your heart desires.
  - __alt__: Alt text (only used for `<img>`)
  
 ##Theme Function
-__NEW!__ Link to SVGs used in your theme quicker using the `{{ svgi:theme }}` syntax. The theme function assumes a base path of the current theme when building out the URL to the SVG file. Example:
+Link to SVGs used in your theme quicker using the `{{ svgi:theme }}` syntax. The theme function assumes a base path of the current theme when building out the URL to the SVG file. Example:
 ```
 {{ svgi src="assets/img/logo.svg" }}
 Grabs file from SITEROOT/assets/img/logo.svg
  
 {{ svgi:theme src="img/logo.svg" }}
 Grabs file from SITEROOT/_themes/mytheme/img/logo.svg
+```
+
+##Symbol Function
+__NEW!__ Link to SVG symbols as defined in a file earlier in the page.  
+See the [article on CSS Tricks](http://css-tricks.com/svg-sprites-use-better-icon-fonts/) for more information. 
+Example:
+```
+{{ svgi:symbol name="menu" class="icon" }}
+
+Outputs: <svg class="icon menu"><use xlink:href="#menu"></use></svg>
 ```
  
 ##TODO
