@@ -13,8 +13,12 @@ Drop the `{{ svgi }}` tag anywhere your heart desires.
 ##Parameters
 `{{ svgi }}` accepts the following parameters:
  - __src__: Path to the SVG file (required)
- - __as__: Optionally insert SVG as `<object>` or `<img>`
+ - __as__: Optionally insert SVG into the page with different techniques:
+   - `object`
+   - `img`
+   - `svg_img` (`svg` tag with `image` fallback, see [usage](http://lynn.ru/examples/svg/en.html))
  - __alt__: Alt text (only used for `<img>`)
+ - __fallback__: Fallback image (only used for `svg_img`)
  
 ##Theme Function
 Link to SVGs used in your theme quicker using the `{{ svgi:theme }}` syntax. The theme function assumes a base path of the current theme when building out the URL to the SVG file. Example:
