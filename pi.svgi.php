@@ -123,14 +123,14 @@ class Plugin_svgi extends Plugin
             if ($alt)
             {
                 $alt = ' alt="' . $alt . '" ';
-            }
-            // Build <img> tag
-            $html = '<img src ="' . $full_url . '" ' . $alt . '>';
-        }
-        elseif ( $as == "obj" || $as == "object" )
-        {
-            // Build <object> tag
-            $html = '<object type="image/svg+xml" data="' . $full_url . '"></object>';
+            } 
+            // Build <img> tag                   
+            $html = '<img src ="' . $full_url . '" ' . $alt . '>';        
+        } 
+        elseif ( $as == "obj" || $as == "object" ) 
+        {            
+            // Build <object> tag                   
+            $html = '<object type="image/svg+xml" data="' . $full_url . '"></object>';   
         }
         elseif ( $as == "svg_image" )
         {
