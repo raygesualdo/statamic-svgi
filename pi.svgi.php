@@ -57,7 +57,8 @@ class Plugin_svgi extends Plugin
         $src = $this->fetchParam('src', false, null, false, false);
         $as  = $this->fetchParam('as', false, null, false, true);
         $alt = $this->fetchParam('alt', false, null, false, false);
-		
+        $fallback = $this->fetchParam('fallback', null, null, false, false);
+
         // Exit if no $src
         if (!$src)
         {
@@ -65,13 +66,19 @@ class Plugin_svgi extends Plugin
         }
 		
         // Get theme path from global config
-        $theme_path = Config::getCurrentthemePath();
-        
+        $theme_path = Config::getCurrentThemePath();
+
         // Build new $src URL
         $src = $theme_path . $src;
 
-        return $this->insertSvg($src, $as, $alt);
-        
+        // Same for fallback
+        if ($fallback)
+        {
+            $fallback = $theme_path . $fallback;
+        }
+
+        return $this->insertSvg($src, $as, $alt, $fallback);
+
     }
 
     /**
@@ -83,10 +90,11 @@ class Plugin_svgi extends Plugin
      * @param string $src URL for file
      * @param string $as optionally insert as <object> or <img>
      * @param string $alt alt text for <img> tags only
+     * @param string $fallback fallback url for <image> tag
      * @return string
      */
-    private function insertSvg($src, $as = NULL, $alt = NULL)
-    {        
+    private function insertSvg($src, $as = NULL, $alt = NULL, $fallback = NULL)
+    {
         // Exit if no $src
         if (!$src)
         {
@@ -97,8 +105,14 @@ class Plugin_svgi extends Plugin
         $full_src = Path::assemble(BASE_PATH, $src);
         
         // Assemble URL to SVG file
-        $full_url = Config::getSiteRoot() . $src;
-        
+        $full_url = URL::prependSiteRoot($src);
+
+        // Do the same to the fallback
+        if ($fallback)
+        {
+            $full_fallback_url = URL::prependSiteRoot($fallback);
+        }
+
         // Declare return variable
         $html;
         
@@ -116,7 +130,13 @@ class Plugin_svgi extends Plugin
         elseif ( $as == "obj" || $as == "object" ) 
         {            
             // Build <object> tag                   
-            $html = '<object type="image/svg+xml" data="' . $full_url . '"></object>';            
+            $html = '<object type="image/svg+xml" data="' . $full_url . '"></object>';   
+        }
+        elseif ( $as == "svg_image" )
+        {
+            // Build <svg> tag
+            // see: http://lynn.ru/examples/svg/en.html for intended usage
+            $html = '<svg><image xlink:href="' . $full_url . '" src="' . $full_fallback_url . '" width="100%" height="100%" /></svg>';
         }
         else
         {
